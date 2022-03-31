@@ -2,6 +2,8 @@
 import itertools
 import random
 
+from numpy import roll
+
 
 
 #global variables
@@ -10,16 +12,29 @@ classes = []
 attributes = ["Strength","Dexterity","Constitution","Intelegence","Wisdom","Charsima"]
 skills = ["Acrobatics", "Animal Handling", "Arcana", "Atheletics", "Deception", "History", "Insight", "Intimidation","Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuassion", "Religion", "Slight of Hand", "Stealth", "Survival"]
 #tools = [Artisan][Gaming Sets][Musical Instruments][Other]
-tools = [["Alchemist","Brewer","Calligrapher","Cartographer","Cobbler","Cook","Glassblower","Jewler","Leatherwork","Mason","Painter","Potter","Smith","Tinker","Weaver","Woodcarver"],["Dice","Cards"],["Bagpipes","Drum","Dulcimer","Flute","Lute,","Lyre","Horn","Pan flute","Shawm","Viol"],["Disguise","Forgery","Herbalism","Navigator","Poisoners","Theives"]] 
+tools = [["Alchemist Tools","Brewer Tools","Calligrapher Tools","Cartographer Tools","Cobbler Tools","Cook Tools","Glassblower Tools","Jewler Tools","Leatherwork Tools","Mason Tools","Painter Tools","Potter Tools","Smith Tools","Tinker Tools","Weaver Tools","Woodcarver Tools"],["Dice","Cards"],["Bagpipes","Drum","Dulcimer","Flute","Lute,","Lyre","Horn","Pan flute","Shawm","Viol"],["Disguise Kit","Forgery Kit","Herbalism Kit","Navigator Tools","Poisoners Kit","Theives Tools"]] 
 tools_dwarf = [tools[0][1],tools[0][9],tools[0][12]]
-vehicles = ["Land","Water"]
+vehicles = ["Land Vehicles","Water Vehicles"]
 resistances = ["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightening", "Nectrotic", "Piercing", "Poison", "Psychic" , "Radiant", "Slashing" "Thunder"]
-weapons = ["Simple","Martial","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Lighthammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
-armour = ["Light","Medium","Heavy","Shields"]
+weapons = ["Simple Weapons","Martial Weapons","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Lighthammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
+armour = ["Light Armpur","Medium Armour","Heavy Armour","Shields"]
 languages = ["Common","Evlish","Dwarvish","Giant","Gnomish","Halfling","Orc","Abyssal","Celestial","Draconic","Deep Speech","Infernal","Primordial","Sylvan","Undercommon"]     
 
 
+
 #global dictionaries
+
+#dict_char defines the keys for the highest level of the character structure
+dict_char = dict.fromkeys([
+"Key",
+"Characteristics",
+"Attributes",
+"Skills",
+"Proficiencies",
+"Feats & Traits",
+"Stats",
+"Items"
+])
 
 #dict_race = {race:[attributes][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats]}
 dict_race = {
@@ -34,9 +49,9 @@ dict_race = {
 "Dragonborn (White)":[[2,0,0,0,0,1,0,30,'Medium'],[],[],[],[resistances[2]],[],[],[languages[0],languages[9]],[]],
 "Dwarf (Hill)":[[0,0,2,0,0,1,0,25,'Medium'],[],[random.choice(tools_dwarf)],[],[resistances[8]],[weapons[6],weapons[7],weapons[8],weapons[9]],[],[languages[0],languages[2]],[]],
 "Dwarf (Mountain)":[[2,0,2,0,0,0,0,25,'Medium'],[],[random.choice(tools_dwarf)],[],[resistances[8]],[weapons[6],weapons[7],weapons[8],weapons[9]],[armour[0],armour[2]],[languages[0],languages[1]],[]],
-"Elf (Eladrin)":[[0,2,0,1,0,0,0,30,'Medium'],[skills[10]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1]],[]],
-"Elf (High)":[[0,2,0,1,0,0,0,30,'Medium'],[skills[10]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1],random.choice(languages[2:])],[]],
-"Elf (Wood)":[[0,2,0,0,1,0,0,35,'Medium'],[skills[10]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1]],[]],
+"Elf (Eladrin)":[[0,2,0,1,0,0,0,30,'Medium'],[skills[11]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1]],[]],
+"Elf (High)":[[0,2,0,1,0,0,0,30,'Medium'],[skills[11]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1],random.choice(languages[2:])],[]],
+"Elf (Wood)":[[0,2,0,0,1,0,0,35,'Medium'],[skills[11]],[],[],[],[weapons[2],weapons[3],weapons[4],weapons[5]],[],[languages[0],languages[1]],[]],
 "Gnome (Deep)":[[0,1,0,0,2,0,0,25,'Small'],[],[],[],[],[],[],[languages[0],languages[5],languages[14]],[]],
 "Gnome (Rock)":[[0,0,1,0,2,0,0,25,'Small'],[],[tools[0][13]],[],[],[],[],[languages[0],languages[5]],[]],
 "Half-Elf":[[0,0,0,0,0,2,2,30,'Medium'],random.sample(skills,k=2),[],[],[],[],[],[languages[0],languages[1],random.choice(languages[2:])],[]],
@@ -52,7 +67,7 @@ dict_race = {
 """for k,v in dict_race.items():
     print(k,v)"""
 
-#dict_class = {class:[hit_die,skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells]]}
+#dict_class = {class:[hit_die],skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells]]}
 dict_class = {
 "Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[]],
 "Bard":[8,3,[attributes[1],attributes[5]],skills,[],random.sample(tools[2],k=3),[],[weapons[0],weapons[2],weapons[3],weapons[10],weapons[11]],[armour[0]],[],[],[]],
@@ -74,11 +89,11 @@ dict_class = {
 
 #dict_background = {background:[[skills],tools#,[tools][vehicles],languages#,[languages][traits/abilities/feats][personality trait][ideal][bond][flaw][equipment]]}
 dict_background = {
-"Acolyte":[[skills[6],skills[14]],0,[],2,languages,[],[],[],[],[],[]],
-"Charlatan":[[skills[4],skills[15]],2,[tools[3][0],tools[3][1]],0,[],[],[],[],[],[],[]],
-"Criminal/Spy":[[skills[4],skills[16]],1,tools[1],0,[],[],[],[],[],[],[]],
+"Acolyte":[[skills[6],skills[14]],0,[],[],2,languages,[],[],[],[],[],[]],
+"Charlatan":[[skills[4],skills[15]],2,[tools[3][0],tools[3][1]],[],0,[],[],[],[],[],[],[]],
+"Criminal/Spy":[[skills[4],skills[16]],1,tools[1],[],0,[],[],[],[],[],[],[]],
 "Entertainer":[[skills[0],skills[12]],2,[tools[3][0],random.choice(tools[2])],[],0,[],[],[],[],[],[],[],[]],
-"Folk Hero":[[skills[1]],[skills[17]],1,tools[0],[vehicles[0]],0,[],[],[],[],[],[],[]],
+"Folk Hero":[[skills[1],skills[17]],1,tools[0],[vehicles[0]],0,[],[],[],[],[],[],[]],
 "Guild Artisan":[[skills[6],skills[11]],1,tools[0],[],1,languages,[],[],[],[],[],[]],
 "Hermit":[[skills[9],skills[14]],1,[tools[3][2]],[],1,languages,[],[],[],[],[],[]],
 "Noble":[[skills[5],skills[13]],1,tools[1],[],1,languages,[],[],[],[],[],[]],
@@ -86,7 +101,7 @@ dict_background = {
 "Sage":[[skills[2],skills[5]],0,[],[],2,languages,[],[],[],[],[],[]],
 "Sailor":[[skills[3],skills[11]],1,[tools[3][3]],[vehicles[1]],0,[],[],[],[],[],[],[]],
 "Soldier":[[skills[3],skills[7]],1,tools[1],[vehicles[0]],0,[],[],[],[],[],[],[]],
-"Urchin":[[skills[15],skills[16]],2,[tools[3][0],tools[3][4]],0,[],[],[],[],[],[],[]]
+"Urchin":[[skills[15],skills[16]],2,[tools[3][0],tools[3][4]],[],0,[],[],[],[],[],[],[]]
 }
 
 
@@ -131,17 +146,144 @@ def random_dict_key (dict_x):
     selection = random.choice(dict_keys)
     return selection
 
+#Function to randomly generate attributes using the 4d6 drop 1 method
+def roll_attributes (race):
+    dict_attributes = dict.fromkeys(attributes)
+    
+    #roll attributes
+    for key in dict_attributes:
+        dict_attributes [key] = sum(roll_dice(4,6,1,"l"))
+    
+    #print(dict_attributes)
+    
+    #add racial bonus's, this is jank, they're has to be a better solution
+
+    dict_attributes ["Strength"] = dict_attributes ["Strength"] + dict_race [race][0][0]
+    dict_attributes ["Dexterity"] = dict_attributes ["Dexterity"] + dict_race [race][0][1]
+    dict_attributes ["Constitution"] = dict_attributes ["Constitution"] + dict_race [race][0][2]
+    dict_attributes ["Intelegence"] = dict_attributes ["Intelegence"] + dict_race [race][0][3]
+    dict_attributes ["Wisdom"] = dict_attributes ["Wisdom"] + dict_race [race][0][4]
+    dict_attributes ["Charsima"] = dict_attributes ["Charsima"] + dict_race [race][0][5]
+
+    #add unassigned attributes
+    bonus_attributes = dict_race [race][0][6]
+    for x in range (bonus_attributes):
+        selection = random.choice(attributes)
+        dict_attributes [selection] = dict_attributes [selection] + 1
+        print (selection) 
+    
+    #print(dict_attributes)
+
+    return dict_attributes
+
+#Function the assign skill proffecenies
+def char_proficiencies (race,char_class,background):
+    
+    #varriables flattening proficienies into one list
+    flatten_tools = [val for sublist in tools for val in sublist]
+    proficiencies = [skills,flatten_tools,vehicles,weapons,armour]
+    proficiencies = [val for sublist in proficiencies for val in sublist]
+    
+    #create a dictionary of priciencies
+    dict_proficiencies = {}
+      
+    for key in proficiencies:
+        dict_proficiencies [key] = 0
+    
+    
+    ##################################### - SKILLS - #####################################
+    
+    #define character skills with a baseline from there race and profession
+    char_skills = dict_race[race][1]
+    char_skills.extend(dict_background[background][0])
+
+    #remove any duplicates
+    char_skills = list(dict.fromkeys(char_skills))
+
+    class_skills = dict_class[char_class][3]
+    #print (class_skills)
+    
+    #remove any class spesific skills that are covered by previously defined character skills
+    for x in char_skills :
+        for y in class_skills :
+            if y == x:
+                class_skills.remove(y)
+    
+    #combines the char_skills with class skills
+    char_skills.extend(random.sample(class_skills, k = dict_class[char_class][1]))
+
+    ##################################### - TOOLS - #####################################
+    
+    #defines character tool proficancies
+    char_tools = dict_race[race][2]
+    char_tools.extend(dict_class[char_class][4])
+    background_tools = dict_background[background][2]
+    #remove any background spesific tool proficencies that are covered by previously defined character tool proficencies
+    for x in char_tools :
+        for y in background_tools :
+            if y == x:
+                background_tools.remove(y)
+
+    char_tools.extend(random.sample(background_tools,k = dict_background[background][1]))
+    print (char_tools)
+
+    ##################################### - Vehicles - #####################################
+    char_vehicles = dict_background[background][3]
+
+    ##################################### - Create 1 consolidated dictionary - #####################################
 
 
+    char_proficiencies = char_skills
+    char_proficiencies.extend(char_tools)
+    char_proficiencies.extend(char_vehicles)
+    #print(char_proficiencies)
+    #this loop makes sure that each skills that the character is given in is given a score of 1
+    #proficency is tracked by using this figure, so a figure of 1 = add proficeny 1 times, 0.5 = adding half proficeny and so on
+    
 
+    for x in char_proficiencies :
+        dict_proficiencies [x] = dict_proficiencies [x] + 1
+
+    #print (dict_skills)
+
+    ##################################### - Delete Proficenies = 0 (Might Remove Later?) - #####################################   
+    keys_to_be_removed = []
+    for key in dict_proficiencies:
+        if dict_proficiencies[key] == 0:
+            keys_to_be_removed.append(key)
+    for key in keys_to_be_removed:
+        dict_proficiencies.pop(key)
+
+    return dict_proficiencies
+
+#Function to calculate skill bonus's, designed to be recalled during level up
+    
 
 ###########################################################################
 #BODY OF CODE#
 ###########################################################################
-character = []
+
+#print(dict_char)
+
+#generate the "key" infomation about the character
+dict_char ["Key"] = {
+"Name":char_name(), 
+"Race": random_dict_key(dict_race),
+#"Race" : "Elf (Wood)",
+"Class": random_dict_key(dict_class),
+"Background": random_dict_key(dict_background)
+}
+
+dict_char ["Attributes"] = roll_attributes(dict_char["Key"]["Race"])
+dict_char ["Proficiencies"] = char_proficiencies(dict_char["Key"]["Race"],dict_char["Key"]["Class"],dict_char["Key"]["Background"])
+
+
+print (dict_char)
+
+"""character = []
 character.append(char_name())
 character.append(random_dict_key(dict_race))
 character.append(random_dict_key(dict_class))
 character.append(random_dict_key(dict_background))
 print(character)
-print(roll_dice())
+print(roll_dice())"""
