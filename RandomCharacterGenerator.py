@@ -29,12 +29,36 @@ dict_char = dict.fromkeys([
 "Key",
 "Characteristics",
 "Attributes",
-"Skills",
 "Proficiencies",
+"Languages",
 "Feats & Traits",
 "Stats",
 "Items"
 ])
+
+
+
+#dict_attributesscores determines the attribute score bonuses b
+
+dict_attributesscores = {
+1 : -5,
+2 : -4,3 : -4,
+4 : -3,5 : -3,
+6 : -2,7 : -2,
+8 : -1,9 : -1,
+10 : 0,11 : 0,
+12 : 1,13 : 1,
+14 : 2,15 : 2,
+16 : 3,17 : 3,
+18 : 4,19 : 4,
+20 : 5,21 : 5,
+22 : 6,23 : 6,
+24 : 7,25 : 7,
+26 : 8,27 : 8,
+28 : 9,29 : 9,
+30 : 10
+}
+
 
 #dict_race = {race:[attributes][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats]}
 dict_race = {
@@ -147,7 +171,7 @@ def random_dict_key (dict_x):
     return selection
 
 #Function to randomly generate attributes using the 4d6 drop 1 method
-def roll_attributes (race):
+def roll_attributes (race,char_class):
     dict_attributes = dict.fromkeys(attributes)
     
     #roll attributes
@@ -170,8 +194,9 @@ def roll_attributes (race):
     for x in range (bonus_attributes):
         selection = random.choice(attributes)
         dict_attributes [selection] = dict_attributes [selection] + 1
-        print (selection) 
+        #print (selection) 
     
+    dict_attributes ["Saving Throws"] = dict_class [char_class][2]
     #print(dict_attributes)
 
     return dict_attributes
@@ -223,9 +248,11 @@ def char_proficiencies (race,char_class,background):
         for y in background_tools :
             if y == x:
                 background_tools.remove(y)
-
-    char_tools.extend(random.sample(background_tools,k = dict_background[background][1]))
-    print (char_tools)
+    try:
+        char_tools.extend(random.sample(background_tools,k = dict_background[background][1]))
+    except:
+        print ("Background tools have already been learned")
+    #print (char_tools)
 
     ##################################### - Vehicles - #####################################
     char_vehicles = dict_background[background][3]
@@ -256,7 +283,45 @@ def char_proficiencies (race,char_class,background):
 
     return dict_proficiencies
 
-#Function to calculate skill bonus's, designed to be recalled during level up
+#Function to assign known laungages
+def char_languages (race,background):
+    race_languages = dict_race[race][7]
+    background_languages = dict_background[background][5]
+
+    for x in race_languages :
+        for y in background_languages :
+            if y == x:
+                background_languages.remove(y)
+    background_languages = random.sample(background_languages,k = dict_background[background][4])
+
+    char_languages = list(itertools.chain(race_languages,background_languages))
+    return char_languages
+
+#Function to calculate level 1 stats
+
+def char_stats_lvl1 (attributes,race,char_class):
+    stats = {}
+    #calculate HP and Hit die
+    stats ["Maximum HP"] = dict_class[char_class][0] + dict_attributesscores[attributes["Constitution"]]
+    stats ["Current HP"] = stats ["Maximum HP"]
+    stats ["Temporary HP"] = 0
+    stats ["Maximum Hit Die"] = {dict_class[char_class][0]:1}
+    stats ["Current Hit Die"] = {dict_class[char_class][0]:1}
+
+    #calculate un-armored defense
+    if char_class in ["Barbarian","Monk"]:
+        if char_class == "Barbarian":
+            stats ["AC"] = 10 + dict_attributesscores[attributes["Dexterity"]] + dict_attributesscores[attributes["Constitution"]]
+        if char_class == "Monk": 
+            stats ["AC"] = 10 + dict_attributesscores[attributes["Dexterity"]] + dict_attributesscores[attributes["Wisdom"]]
+    else:
+        stats ["AC"] = 10 + dict_attributesscores[attributes["Dexterity"]]
+    
+    #calculate speed
+    stats ["Speed"] = dict_race[race][0][7]
+
+
+    return stats
     
 
 ###########################################################################
@@ -274,9 +339,11 @@ dict_char ["Key"] = {
 "Background": random_dict_key(dict_background)
 }
 
-dict_char ["Attributes"] = roll_attributes(dict_char["Key"]["Race"])
+#generate 
+dict_char ["Attributes"] = roll_attributes(dict_char["Key"]["Race"],dict_char["Key"]["Class"])
 dict_char ["Proficiencies"] = char_proficiencies(dict_char["Key"]["Race"],dict_char["Key"]["Class"],dict_char["Key"]["Background"])
-
+dict_char ["Languages"] = char_languages(dict_char["Key"]["Race"],dict_char["Key"]["Background"])
+dict_char ["Stats"] = char_stats_lvl1(dict_char["Attributes"],dict_char["Key"]["Race"],dict_char["Key"]["Class"])
 
 print (dict_char)
 
