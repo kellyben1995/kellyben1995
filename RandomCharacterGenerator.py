@@ -1,7 +1,7 @@
 #labaries
 import itertools
 import random
-
+import csv
 from numpy import roll
 
 
@@ -12,7 +12,7 @@ classes = []
 attributes = ["Strength","Dexterity","Constitution","Intelegence","Wisdom","Charsima"]
 skills = ["Acrobatics", "Animal Handling", "Arcana", "Atheletics", "Deception", "History", "Insight", "Intimidation","Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuassion", "Religion", "Slight of Hand", "Stealth", "Survival"]
 #tools = [Artisan][Gaming Sets][Musical Instruments][Other]
-tools = [["Alchemist Tools","Brewer Tools","Calligrapher Tools","Cartographer Tools","Cobbler Tools","Cook Tools","Glassblower Tools","Jewler Tools","Leatherwork Tools","Mason Tools","Painter Tools","Potter Tools","Smith Tools","Tinker Tools","Weaver Tools","Woodcarver Tools"],["Dice","Cards"],["Bagpipes","Drum","Dulcimer","Flute","Lute,","Lyre","Horn","Pan flute","Shawm","Viol"],["Disguise Kit","Forgery Kit","Herbalism Kit","Navigator Tools","Poisoners Kit","Theives Tools"]] 
+tools = [["Alchemist Tools","Brewer Tools","Calligrapher Tools","Cartographer Tools","Cobbler Tools","Cook Tools","Glassblower Tools","Jewler Tools","Leatherwork Tools","Mason Tools","Painter Tools","Potter Tools","Smith Tools","Tinker Tools","Weaver Tools","Woodcarver Tools"],["Dice","Cards"],["Bagpipes","Drum","Dulcimer","Flute","Lute,","Lyre","Horn","Pan flute","Shawm","Viol"],["Disguise Kit","Forgery Kit","Herbalism Kit","Navigator Tools","Poisoner Kit","Theives Tools"]] 
 tools_dwarf = [tools[0][1],tools[0][9],tools[0][12]]
 vehicles = ["Land Vehicles","Water Vehicles"]
 resistances = ["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightening", "Nectrotic", "Piercing", "Poison", "Psychic" , "Radiant", "Slashing" "Thunder"]
@@ -59,7 +59,22 @@ dict_attributesscores = {
 30 : 10
 }
 
+#dict_items a dictionary for all the item types in the 5e rule book, this is done through loading in a CSV files here
+dict_items = { }
+with open ('C:/Users/BK82183/Desktop/DandD_CodeProject/Character_Generator/items/Items.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter = ',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                #print(f'Column names are {", ".join(row)}')
+                line_count += 1
+            else:
+                #print(f'\t{row[0]}')
+                line_count += 1
+                dict_items[row[0]] = row [1:]
 
+
+#print (dict_items)
 #dict_race = {race:[attributes][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats]}
 dict_race = {
 "Dragonborn (Black)":[[2,0,0,0,0,1,0,30,'Medium'],[],[],[],[resistances[0]],[],[],[languages[0],languages[9]],[]],

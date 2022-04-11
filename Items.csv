@@ -1,0 +1,180 @@
+﻿Item,Type,Weight (lb),Value (gp),Quantity,Misc
+Abacus,Misc,2,2,1,
+Acid (Vial),Action,1,25,1,
+Alchemist Fire,Action,1,50,1,
+Arrows,Amunition,0.05,0.05,1,"As an action, you can splash the contents of this vial onto a creature within 5 feet of you or throw the vial up to 20 feet, shattering it on impact. In either case, make a ranged attack against a creature or object, treating the acid as an improvised weapon. On a hit, the target takes 2d6 acid damage"
+Blowgun Needles,Amunition,0.05,0.05,1,"This sticky, adhesive fluid ignites when exposed to air. As an action, you can throw this flask up to 20 feet, shattering it on impact. Make a ranged attack against a creature or object, treating the alchemist's fire as an improvised weapon. On a hit, the target takes 1d4 fire damage at the start of each of its turns. A creature can end this damage by using its action to make a DC 10 Dexterity check to extinguish the flames."
+Crossbow Bolts,Amunition,0.075,0.05,1,
+Sling Bullets,Amunition,0.075,0.05,1,
+Antitoxin (Vial),Action,0,50,1,
+Crystal,Focus,1,10,1,
+Orb,Focus,3,20,1,A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour. It confers no benefit to undead or constructs.
+Rod,Focus,2,10,1,
+Staff,Focus,4,10,1,
+Wand,Focus,1,5,1,
+Backpack,Container,5,2,1,
+Ball Bearings (Bag),Action,2,1,1,
+Barrel,Container,70,2,1,
+Basket,Container,2,0.04,1,"As an action, you can spill these tiny metal balls from their pouch to cover a level, square area that is 10 feet on a side. A creature moving across the covered area must succeed on a DC 10 Dexterity saving throw or fall prone. A creature moving through the area at half speed doesn’t need to make the save."
+Bedroll,Misc,7,1,1,
+Bell,Misc,0,1,1,
+Blanket,Misc,3,0.05,1,
+Block and Tackle,Misc,5,1,1,
+Book,Misc,5,25,1,
+Bottle (Glass),Misc,2,2,1," A set of pulleys with a cable threaded through them and a hook to attach to objects, a block and tackle allows you to hoist up to four times the weight you can normally lift."
+Bucket,Container,2,0.0005,1,
+Caltrops (Bag),Action,2,1,1,
+Candle,Misc,2,0.0001,1,
+Case (Crossbow Bolts),Misc,1,1,1,"As an action, you can spread a bag of caltrops to cover a square area that is 5 feet on a side. Any creature that enters the area must succeed on a DC 15 Dexterity saving throw or stop moving this turn and take 1 piercing damage. Taking this damage reduces the creature’s walking speed by 10 feet until the creature regains at least 1 hit point. A creature moving through the area at half speed doesn’t need to make the save."
+Case (Map or Scroll),Misc,1,1,1,"For 1 hour, a candle sheds bright light in a 5-foot radius and dim light for an additional 5 feet."
+Chain,Misc,10,5,1,A wooden case that can hold upto 20 crossbow bolts
+Climber's Kit,Misc,12,25,1,A wooden case that can hold upto 5 rolled up maps or scrolls
+Clothes (Common),Clothes,3,5,1,A chain has 10 hp and be burst with a DC 20 Strength check
+Clothes (Costume),Clothes,4,5,1,"A climber’s kit includes special pitons, boot tips, gloves, and a harness. You can use the climber’s kit as an action to anchor yourself; when you do, you can’t fall more than 25 feet from the point where you anchored yourself, and you can’t climb more than 25 feet away from that point without undoing the anchor."
+Clothes (Fine),Clothes,6,15,1,
+Clothes (Traveler's),Clothes,4,2,1,
+Component Pouch,Misc,2,25,1,
+Crowbar,Misc,5,2,1,
+Sprig of Mistletoe,Focus,0,1,1,"A component pouch is a small, watertight leather belt pouch that has compartments to hold all the material components and other special items you need to cast your spells, except for those components that have a specific cost (as indicated in a spell's description)."
+Totem,Focus,0,1,1,Using a crowbar grants advantage to Strength checks where the crowbar’s leverage can be applied.
+Wooden Staff,Focus,4,5,1,
+Yew Wand,Focus,1,10,1,
+Fishing Tackle,Misc,4,1,1,
+Grappling Hook,Misc,4,2,1,
+Hammer,Misc,3,1,1,"This kit includes a wooden rod, silken line, corkwood bobbers, steel hooks, lead sinkers, velvet lures, and narrow netting."
+Sledge Hammer,Misc,10,2,1,
+Healer's Kit,Action,0.03,5,10,
+Amulet (Holy Symbol),Focus,1,5,1,
+Emblem (Holy Symbol),Focus,0,5,1,"This kit is a leather pouch containing bandages, salves, and splints. The kit has ten uses. As an action, you can expend one use of the kit to stabilize a creature that has 0 hit points, without needing to make a Wisdom (Medicine) check"
+Reliquart (Holy Symbol),Focus,2,5,1,
+Holy Water (Flask),Action,1,25,1,
+Hourglass,Misc,1,25,1,
+Hunting Trap,Action,25,5,1,"As an action, you can splash the contents of this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. In either case, make a ranged attack against a target creature, treating the holy water as an improvised weapon. If the target is a fiend or undead, it takes 2d6 radiant damage.
+
+A cleric or paladin may create holy water by performing a special ritual. The ritual takes 1 hour to perform, uses 25 gp worth of powdered silver, and requires the caster to expend a 1st0level spell slot."
+Ink (Bottle),Misc,0,10,1,
+Ink Pen,Misc,0,0.0002,1,"When you use your action to set it, this trap forms a saw toothed steel ring that snaps shut when a creature steps on a pressure plate in the center. The trap is affixed by a heavy chain to an immobile object, such as a tree or a spike driven into the ground. A creature that steps on the plate must succeed on a DC 13 Dexterity saving throw or take 1d4 piercing damage and stop moving. Thereafter, until the creature breaks free of the trap, its movement is limited by the length of the chain (typically 3 feet long). A creature can use its action to make a DC 13 Strength check, freeing itself or another creature within its reach on a success. Each failed check deals 1 piercing damage to the trapped creature"
+Jug/Pitcher,Container,25,0.0002,1,
+Ladder (10ft),Misc,1,0.01,1,
+Lamp,Misc,2,0.05,1,
+Lantern (Bullseye),Misc,2,10,1,
+Latern (Hooded),Misc,1,5,1,"A lamp casts bright light in a 15 foot radius and dim light for an additional 30 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil."
+Lock,Misc,1,10,1,"A bullseye lantern casts bright light in a 60 foot cone and dim light for an additional 60 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil."
+Magnifying Glass,Misc,0,100,1,"A hooded lantern casts bright light in a 30 foot radius and dim light for an additional 30 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil. As an action, you can lower the hood, reducing the light to dim light in a 5-foot radius."
+Manacles,Misc,6,2,1,"A key is provided with the lock. Without the key, a creature proficient with thieves’ tools can pick this lock with a successful DC 15 Dexterity check. Your GM may decide that better locks are available for higher prices."
+Mess Kit,Misc,1,0.02,1,"This lens allows a closer look at small objects. It is also useful as a substitute for flint and steel when starting fires. Lighting a fire with a magnifying glass requires light as bright as sunlight to focus, tinder to ignite, and about 5 minutes for the fire to ignite. A magnifying glass grants advantage on any ability check made to appraise or inspect an item that is small or highly detailed."
+Mirror,Misc,0.5,5,1,"These metal restraints can bind a Small or Medium creature. Escaping the manacles requires a successful DC 20 Dexterity check. Breaking them requires a successful DC 20 Strength check. Each set of manacles comes with one key. Without the key, a creature proficient with thieves’ tools can pick the manacles’ lock with a successful DC 15 Dexterity check. Manacles have 15 hit points."
+Oil (Flask),Action,1,0.01,1,"This tin box contains a cup and simple cutlery. The box clamps together, and one side can be used as a cooking pan and the other as a plate or shallow bowl"
+Paper (1 Sheet),Misc,0,0.02,1,
+Parchment (1 Sheet),Misc,0,0.01,1,"Oil usually comes in a clay flask that holds 1 pint. As an action, you can splash the oil in this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. Make a ranged attack against a target creature or object, treating the oil as an improvised weapon. On a hit, the target is covered in oil. If the target takes any fire damage before the oil dries (after 1 minute), the target takes an additional 5 fire damage from the burning oil. You can also pour a flask of oil on the ground to cover a 50foot0square area, provided that the surface is level. If lit, the oil burns for 2 rounds and deals 5 fire damage to any creature that enters the area or ends its turn in the area. A creature can take this damage only once per turn"
+Perfume (Vial),Misc,0,5,1,
+Pick (Miners),Misc,10,2,1,
+Poisonn Basic (Vial),Action,0,100,1,
+Piton ,Misc,0.25,0.0001,1,
+Pole (10ft),Misc,7,0.0001,1,"You can use the poison in this vial to coat one slashing or piercing weapon or up to three pieces of ammunition. Applying the poison takes an action. A creature hit by the poisoned weapon or ammunition must make a DC 10 Constitution saving throw or take 1d4 poison damage. Once applied, the poison retains potency for 1 minute before drying."
+Pot (Iron),Container,10,2,1,
+Potion of Healing,Action,0.5,50,1,
+Pouch,Container,1,0.05,1,
+Quiver,Misc,1,1,1,A character who drinks the magical red fluid in this vial regains 2d4 + 2 hit points. Drinking or administering a potion takes an action.
+Ram (Portable),Action,35,4,1,
+Rations (1 Day),Food,2,0.05,1,
+Robes,Clothes,4,1,1,"You can use a portable ram to break down doors. When doing so, you gain a +4 bonus on the Strength check. One other character can help you use the ram, giving you advantage on this check."
+Rope - Hempen  (50ft),Misc,10,1,1,"Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts."
+Rope - Silken (50ft),Misc,5,10,1,
+Sack,Container,0.5,0.0001,1,"Rope whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check"
+Scale (Merchant's),Misc,3,5,1,"Rope whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check"
+Signal Whistle,Misc,0,0.0005,1,
+Signet Ring,Misc,0,2,1,"A scale includes a small balance, pans, and a suitable assortment of weights up to 2 pounds. With it, you can measure the exact weight of small objects, such as raw precious metals or trade goods, to help determine their worth."
+Spellbook,Spellbook,3,50,1,
+Spikes (Iron),Misc,5,1,10,
+Spyglass,Action,1,1000,1,"Essential for wizards, a spellbook is a leather bound tome with 100 blank vellum pages suitable for recording spells."
+"Tent, Two-Person",Misc,20,2,1,
+Tinderbox,Action,1,0.05,1,Objects viewed through a spyglass are magnified to twice their size.
+Tourch,Action,1,0.0001,1,"A simple and portable canvas shelter, a tent sleeps two."
+Vial,Container,0,1,1,"This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch—or anything else with abundant, exposed fuel—takes an action. Lighting any other fire takes 1 minute."
+Waterskin,Container,5,0.02,1,"A torch burns for 1 hour, providing bright light in a 20 foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage."
+Whetstone,Misc,1,0.0001,1,
+Club,Weapon,2,0.01,1,
+Dagger,Weapon,1,2,1,
+Greatclub,Weapon,10,0.02,1,
+Handaxe,Weapon,2,5,1,
+Javelin,Weapon,2,0.05,1,
+Light Hammer,Weapon,2,2,1,
+Mace,Weapon,4,4,1,
+Quaterstaff,Weapon,4,0.02,1,
+Sickle,Weapon,2,1,1,
+Spear,Weapon,3,1,1,
+"Crossbow , light",Weapon,5,25,1,
+Dart,Weapon,0.25,0.0005,1,
+Shortbow,Weapon,2,25,1,
+Sling,Weapon,0,0.01,1,
+Battleaxe,Weapon,4,10,1,
+Flail,Weapon,2,10,1,
+Glaive,Weapon,6,20,1,
+Greataxe,Weapon,7,30,1,
+Greatsword,Weapon,6,50,1,
+Halberd,Weapon,6,20,1,
+Lance,Weapon,6,10,1,
+Longsword,Weapon,3,15,1,
+Maul,Weapon,10,10,1,
+Morningstar,Weapon,4,15,1,
+Pike,Weapon,18,5,1,
+Rapier,Weapon,1,25,1,
+Scimitar,Weapon,2,25,1,
+Shortsword,Weapon,2,10,1,
+Trident,Weapon,3,5,1,
+War pick,Weapon,2,5,1,
+Warhammer,Weapon,2,15,1,
+Whip,Weapon,3,2,1,
+Blowgun,Weapon,1,10,1,
+"Crossbow, hand",Weapon,3,75,1,
+"Crossbow, heavy",Weapon,18,50,1,
+Longbow,Weapon,2,50,1,
+Net,Weapon,3,1,1,
+Alchemists Tools,Tools,8,50,1,
+Brewer Tools,Tools,9,20,1,
+Calligrapher Tools,Tools,5,10,1,
+Cartographer Tools,Tools,6,15,1,
+Cobbler Tools,Tools,5,5,1,
+Cook Tools,Tools,1,8,1,
+Glassblower Tools,Tools,5,30,1,
+Jeweler Tools,Tools,2,25,1,
+Leatherwork Tools,Tools,5,5,1,
+Mason Tools,Tools,8,10,1,
+Painter Tools,Tools,5,10,1,
+Potter Tools,Tools,3,10,1,
+Smith Tools,Tools,8,20,1,
+Tinker Tools,Tools,10,50,1,
+Weaver Tools,Tools,5,1,1,
+Woodcarver Tools,Tools,5,1,1,
+Disguise Kit,Tools,3,25,1,
+Forgery Kit,Tools,5,15,1,
+Dice,Tools,0,1,1,
+Cards,Tools,0,5,1,
+Herbalism Kit,Tools,3,5,1,
+Bagpipes,Tools,6,30,1,
+Drum,Tools,3,6,1,
+Dulcimer,Tools,10,25,1,
+Flute,Tools,1,2,1,
+Lute,Tools,2,35,1,
+Lyre,Tools,2,30,1,
+Horn,Tools,2,3,1,
+Pan flute,Tools,2,12,1,
+Shawm,Tools,1,2,1,
+Viol,Tools,1,30,1,
+Navigator Tools,Tools,2,25,1,
+Poisoner kit,Tools,2,50,1,
+Theives Tools,Tools,1,25,1,
+Padded,Armour,8,5,1,
+Leather,Armour,10,10,1,
+Studded Leather,Armour,13,45,1,
+Hide,Armour,12,10,1,
+Chain Shirt,Armour,20,50,1,
+Scale Mail,Armour,45,50,1,
+Breastplace,Armour,20,400,1,
+Half Plate,Armour,40,750,1,
+Ring Mail,Armour,40,30,1,
+Chain Mail,Armour,55,75,1,
+Splint,Armour,60,200,1,
+Plate,Armour,65,1500,1,
+Shield,Armour,6,10,1,
