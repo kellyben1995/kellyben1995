@@ -15,8 +15,8 @@ skills = ["Acrobatics", "Animal Handling", "Arcana", "Atheletics", "Deception", 
 tools = [["Alchemist Tools","Brewer Tools","Calligrapher Tools","Cartographer Tools","Cobbler Tools","Cook Tools","Glassblower Tools","Jewler Tools","Leatherwork Tools","Mason Tools","Painter Tools","Potter Tools","Smith Tools","Tinker Tools","Weaver Tools","Woodcarver Tools"],["Dice","Cards"],["Bagpipes","Drum","Dulcimer","Flute","Lute,","Lyre","Horn","Pan flute","Shawm","Viol"],["Disguise Kit","Forgery Kit","Herbalism Kit","Navigator Tools","Poisoner Kit","Theives Tools"]] 
 tools_dwarf = [tools[0][1],tools[0][9],tools[0][12]]
 vehicles = ["Land Vehicles","Water Vehicles"]
-resistances = ["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightening", "Nectrotic", "Piercing", "Poison", "Psychic" , "Radiant", "Slashing" "Thunder"]
-weapons = ["Simple Weapons","Martial Weapons","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Lighthammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
+resistances = ["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightening", "Nectrotic", "Piercing", "Poison", "Psychic" , "Radiant", "Slashing", "Thunder"]
+weapons = ["Simple Weapons","Martial Weapons","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Light hammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
 armour = ["Light Armpur","Medium Armour","Heavy Armour","Shields"]
 languages = ["Common","Evlish","Dwarvish","Giant","Gnomish","Halfling","Orc","Abyssal","Celestial","Draconic","Deep Speech","Infernal","Primordial","Sylvan","Undercommon"]     
 
@@ -38,7 +38,7 @@ dict_char = dict.fromkeys([
 
 
 
-#dict_attributesscores determines the attribute score bonuses b
+#dict_attributesscores determines the attribute score bonuses 
 
 dict_attributesscores = {
 1 : -5,
@@ -74,6 +74,54 @@ with open ('C:/Users/BK82183/Desktop/DandD_CodeProject/Character_Generator/items
                 dict_items[row[0]] = row [1:]
 
 
+#dict_weapons is a dictionary for each of the basic weapons in 5e and it's corisponding stats
+#{weapon:{properites:[...],damage:[# of dice, size of dice, type of damage],range[min,max]}}
+dict_weapons = {
+"Club":{"Properites":["Simple","Melee","Light"],"Damage":[1,4,resistances[1]],"Range":[5,5]},
+"Dagger":{"Properites":["Simple","Melee","Finesse","Light","Thrown"],"Damage":[1,4,resistances[7]],"Range":[20,60]},
+"Greatclub":{"Properites":["Simple","Melee","Two-handed"],"Damage":[1,8,resistances[1]],"Range":[5,5]},
+"Handaxe":{"Properites":["Simple","Melee","Light","Thrown"],"Damage":[1,6,resistances[11]],"Range":[20,60]},
+"Javelin":{"Properites":["Simple","Melee","Thrown"],"Damage":[1,6,resistances[7]],"Range":[30,120]},
+"Light hammer":{"Properites":["Simple","Melee","Light","Thrown"],"Damage":[1,4,resistances[1]],"Range":[20,60]},
+"Mace":{"Properites":["Simple","Melee"],"Damage":[1,6,resistances[1]],"Range":[5,5]},
+"Quaterstaff":{"Properites":["Simple","Melee",{"Versatile":[1,8,resistances[1]]}],"Damage":[1,6,resistances[1]],"Range":[5,5]},
+"Sickle":{"Properites":["Simple","Melee","Light"],"Damage":[1,4,resistances[11]],"Range":[5,5]},
+"Spear":{"Properites":["Simple","Melee","Thrown",{"Versatile":[1,8,resistances[7]]}],"Damage":[1,6,resistances[7]],"Range":[20,60]},
+"Light Crossbow":{"Properites":["Simple","Ranged","Ammunition","Loading","Two-handed"],"Damage":[1,8,resistances[7]],"Range":[80,320]},
+"Dart":{"Properites":["Simple","Ranged","Finesse","Thrown"],"Damage":[1,4,resistances[7]],"Range":[20,60]},
+"Shortbow":{"Properites":["Simple","Ranged","Ammunition","Two-handed"],"Damage":[1,6,resistances[7]],"Range":[80,320]},
+"Sling":{"Properites":["Simple","Ranged","Ammunition"],"Damage":[1,4,resistances[1]],"Range":[30,120]},
+"Battleaxe":{"Properites":["Martial","Melee",{"Versatile":[1,10,resistances[11]]}],"Damage":[1,8,resistances[11]],"Range":[5,5]},
+"Flail":{"Properites":["Martial","Melee",],"Damage":[1,8,resistances[1]],"Range":[5,5]},
+"Glaive":{"Properites":["Martial","Melee","Heavy","Reach","Two-handed"],"Damage":[1,10,resistances[11]],"Range":[10,10]},
+"Greataxe":{"Properites":["Martial","Melee","Heavy","Two-handed"],"Damage":[1,12,resistances[11]],"Range":[5,5]},
+"Greatsword":{"Properites":["Martial","Melee","Heavy","Two-handed"],"Damage":[2,6,resistances[11]],"Range":[5,5]},
+"Halberd":{"Properites":["Martial","Melee","Heavy","Reach","Two-handed"],"Damage":[1,10,resistances[11]],"Range":[10,10]},
+"Lance":{"Properites":["Martial","Melee","Reach","Special"],"Damage":[1,12,resistances[7]],"Range":[10,10]},
+"Longsword":{"Properites":["Martial","Melee",{"Versatile":[1,10,resistances[11]]}],"Damage":[1,8,resistances[11]],"Range":[5,5]},
+"Maul":{"Properites":["Martial","Melee","Heavy","Two-handed"],"Damage":[2,6,resistances[1]],"Range":[5,5]},
+"Pike":{"Properites":["Martial","Melee","Heavy","Reach","Two-handed"],"Damage":[1,10,resistances[7]],"Range":[10,10]},
+"Rapier":{"Properites":["Martial","Melee","Finesse"],"Damage":[1,8,resistances[7]],"Range":[5,5]},
+"Scimitar":{"Properites":["Martial","Melee","Finesse","Light"],"Damage":[1,6,resistances[11]],"Range":[5,5]},
+"Shortsword":{"Properites":["Martial","Melee","Finesse","Light"],"Damage":[1,6,resistances[7]],"Range":[5,5]},
+"Trident":{"Properites":["Martial","Melee","Thrown",{"Versatile":[1,8,resistances[7]]}],"Damage":[1,6,resistances[7]],"Range":[20,60]},
+"War pick":{"Properites":["Martial","Melee"],"Damage":[1,8,resistances[7]],"Range":[5,5]},
+"Warhammer":{"Properites":["Martial","Melee",{"Versatile":[1,10,resistances[1]]}],"Damage":[1,8,resistances[1]],"Range":[5,5]},
+"Whip":{"Properites":["Martial","Melee","Finesse","Reach"],"Damage":[1,4,resistances[11]],"Range":[10,10]},
+"Blowgun":{"Properites":["Martial","Ranged","Ammunition","Loading"],"Damage":[1,1,resistances[7]],"Range":[25,100]},
+"Hand Crossbow":{"Properites":["Martial","Ranged","Ammunition","Light","Loading"],"Damage":[1,6,resistances[7]],"Range":[30,120]},
+"Heavy Crossbow":{"Properites":["Martial","Ranged","Ammunition","Heavy","Loading"],"Damage":[1,10,resistances[7]],"Range":[100,400]},
+"Longbow":{"Properites":["Martial","Ranged","Ammmunition","Heavy","Two-handed"],"Damage":[1,8,resistances[7]],"Range":[150,600]},
+"Net":{"Properites":["Martial","Ranged","Special","Thorwn"],"Damage":[0,0,resistances[1]],"Range":[5,15]}
+}
+for key in dict_weapons:
+    print(key,  " : ",  dict_weapons[key])
+#dictionary for each of the different "item packs" you can aquire {Item : # of Item}
+dict_items_packs = {
+"Explorer's Pack" : {"Backpack":1,"Bedroll":1,"Mess Kit":1,"Tinderbox":1,"Torch":10,"Ration":10,"Waterskin":1,"Rope, Hempen  (50ft)":1}
+}
+
+print(dict_items_packs)
 #print (dict_items)
 #dict_race = {race:[attributes][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats]}
 dict_race = {
@@ -106,9 +154,9 @@ dict_race = {
 """for k,v in dict_race.items():
     print(k,v)"""
 
-#dict_class = {class:[hit_die],skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells]]}
+#dict_class = {class:[hit_die],skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells][items]]}
 dict_class = {
-"Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[]],
+"Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[],[]],
 "Bard":[8,3,[attributes[1],attributes[5]],skills,[],random.sample(tools[2],k=3),[],[weapons[0],weapons[2],weapons[3],weapons[10],weapons[11]],[armour[0]],[],[],[]],
 "Cleric":[8,2,[attributes[4],attributes[5]],[skills[5],skills[6],skills[9],skills[13],skills[14]],[],[],[],[weapons[0]],[armour[0],armour[1],armour[3]],[],[],[]],
 "Druid":[8,2,[attributes[3],attributes[4]],[skills[1],skills[2],skills[6],skills[9],skills[10],skills[11],skills[14],skills[17]],[tools[3][2]],[],[],[weapons[12],weapons[13],weapons[14],weapons[15],weapons[16],weapons[17],weapons[18],weapons[19],weapons[20]],[armour[0],armour[1],armour[3]],[],[]],
@@ -121,7 +169,7 @@ dict_class = {
 "Warlock":[8,2,[attributes[4],attributes[5]],[skills[2],skills[4],skills[5],skills[7],skills[8],skills[10],skills[14]],[],[],[],[weapons[0]],[armour[0]],[],[],[]],
 "Wizard":[6,2,[attributes[3],attributes[4]],[skills[2],skills[5],skills[6],skills[8],skills[9],skills[14]],[],[],[],[weapons[13],weapons[14],weapons[17],weapons[22]],[],[],[]]
 }
-
+#need fixing - Barbarian 1(B) 2(B)
 
 """for k,v in dict_class.items():
     print(k,v)"""
