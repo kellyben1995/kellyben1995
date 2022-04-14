@@ -2,9 +2,18 @@
 import itertools
 import random
 import csv
+from turtle import update
 from numpy import roll
 
 
+#Function to selected a list of Weapns by it's property
+def search_weapon_property (property):
+    x = []
+    for i in dict_weapons: 
+        for y in dict_weapons[i]["Properites"]: 
+            if y == property: (x.append(i))
+
+    return x    
 
 #global variables
 races = []
@@ -114,15 +123,17 @@ dict_weapons = {
 "Longbow":{"Properites":["Martial","Ranged","Ammmunition","Heavy","Two-handed"],"Damage":[1,8,resistances[7]],"Range":[150,600]},
 "Net":{"Properites":["Martial","Ranged","Special","Thorwn"],"Damage":[0,0,resistances[1]],"Range":[5,15]}
 }
-for key in dict_weapons:
-    print(key,  " : ",  dict_weapons[key])
-#dictionary for each of the different "item packs" you can aquire {Item : # of Item}
-dict_items_packs = {
-"Explorer's Pack" : {"Backpack":1,"Bedroll":1,"Mess Kit":1,"Tinderbox":1,"Torch":10,"Ration":10,"Waterskin":1,"Rope, Hempen  (50ft)":1}
+"""for key in dict_weapons:
+    print(key,  " : ",  dict_weapons[key])"""
+
+dict_starting_items_kits = {
+"Diplomat's Pack" : {"Chest":1,"Case (Map/Scroll":2,"Clothes (Fine)":1,"Ink (Bottle)":1,"Ink Pen":1, "Lamp":1,"Oil  (Flask)":2,"Paper (Sheet)":5,"Vial (Perfume)":1,"Sealing Wax":1},
+"Entertainer's Pack": {"Backpack":1,"Bedroll":1,"Clothes (Costume)":2,"Candle":5,"Ration":5,"Waterskin":1,"Disguise Kit":1},
+"Explorer's Pack" : {"Backpack":1,"Bedroll":1,"Mess Kit":1,"Tinderbox":1,"Torch":10,"Ration":10,"Waterskin":1,"Rope, Hempen (50ft)":1},
+"Priest's Pack" : {"Backpack":1,"Bedroll":1,"Candle":10,"Tinderbox":1,"Alms Box":1,"Block of Incense":1,"Censer":1,"Rations":2,"Clothes (Vestments)":2,"Waterskin":1}
 }
 
-print(dict_items_packs)
-#print (dict_items)
+
 #dict_race = {race:[attributes][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats]}
 dict_race = {
 "Dragonborn (Black)":[[2,0,0,0,0,1,0,30,'Medium'],[],[],[],[resistances[0]],[],[],[languages[0],languages[9]],[]],
@@ -155,8 +166,12 @@ dict_race = {
     print(k,v)"""
 
 #dict_class = {class:[hit_die],skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells][items]]}
+
+
+
+
 dict_class = {
-"Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[],[]],
+"Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[],],
 "Bard":[8,3,[attributes[1],attributes[5]],skills,[],random.sample(tools[2],k=3),[],[weapons[0],weapons[2],weapons[3],weapons[10],weapons[11]],[armour[0]],[],[],[]],
 "Cleric":[8,2,[attributes[4],attributes[5]],[skills[5],skills[6],skills[9],skills[13],skills[14]],[],[],[],[weapons[0]],[armour[0],armour[1],armour[3]],[],[],[]],
 "Druid":[8,2,[attributes[3],attributes[4]],[skills[1],skills[2],skills[6],skills[9],skills[10],skills[11],skills[14],skills[17]],[tools[3][2]],[],[],[weapons[12],weapons[13],weapons[14],weapons[15],weapons[16],weapons[17],weapons[18],weapons[19],weapons[20]],[armour[0],armour[1],armour[3]],[],[]],
@@ -169,6 +184,7 @@ dict_class = {
 "Warlock":[8,2,[attributes[4],attributes[5]],[skills[2],skills[4],skills[5],skills[7],skills[8],skills[10],skills[14]],[],[],[],[weapons[0]],[armour[0]],[],[],[]],
 "Wizard":[6,2,[attributes[3],attributes[4]],[skills[2],skills[5],skills[6],skills[8],skills[9],skills[14]],[],[],[],[weapons[13],weapons[14],weapons[17],weapons[22]],[],[],[]]
 }
+#print (dict_class["Barbarian"])
 #need fixing - Barbarian 1(B) 2(B)
 
 """for k,v in dict_class.items():
@@ -232,6 +248,8 @@ def random_dict_key (dict_x):
         dict_keys.append(key)
     selection = random.choice(dict_keys)
     return selection
+
+
 
 #Function to randomly generate attributes using the 4d6 drop 1 method
 def roll_attributes (race,char_class):
@@ -320,6 +338,12 @@ def char_proficiencies (race,char_class,background):
     ##################################### - Vehicles - #####################################
     char_vehicles = dict_background[background][3]
 
+    ##################################### - Weapoms (Not Completed) - #####################################
+    char_weapons = dict_background[background][3]
+
+    ##################################### - Weapoms (Not Completed) - #####################################
+    char_armour = dict_background[background][3]
+
     ##################################### - Create 1 consolidated dictionary - #####################################
 
 
@@ -386,6 +410,47 @@ def char_stats_lvl1 (attributes,race,char_class):
 
     return stats
     
+#Function to generate inventory based on class and background
+
+def char_items (char_class,background,char_proficiencies):
+    #create a list of proficenies the character has based of there proficiencies dictionary
+    proficiencies = []
+    for x in char_proficiencies:
+        proficiencies.append(x)
+
+    w = [y if "Warhammer" else "Mace" for y in proficiencies] 
+    print (w)
+    w = [y for y in proficiencies if y == "Warhammer"]
+    print (w)
+    #dictionary for each of the different starting items you can aquire by class {Item : # of Item}
+    dict_starting_items_class = {
+        "Barbarian" : 
+            [random.choice([{"Greataxe":1},{random.choice(search_weapon_property("Martial")):1}]),
+            random.choice([{"Handaxe":2},{random.choice(search_weapon_property("Simple")):1}]),
+            {"Javelin":4}],
+        "Bard" : 
+            [random.choice([{"Rapier":1},{"Longsword":1},{random.choice(search_weapon_property("Simple")):1}]),
+            random.choice([{"Lute":2},{random.choice(tools[2]):1}]),
+            {"Leather Armour":1},{"Dagger":1}],
+        "Cleric" : 
+            [random.choice([{"Mace":1},{"Warhammer":1}]), #only if prof
+            random.choice([{"Scail Mail":1},{"Leather Armour":1},{"Chain Mail":1}]), #only if prof
+            random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
+            {"Shield":1},random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])]
+
+        }   
+    print (proficiencies)
+    #add item kits (explorers, travellers ect) to each class
+    dict_starting_items_class ["Barbarian"].append(dict_starting_items_kits["Explorer's Pack"])
+    dict_starting_items_class ["Bard"].append(random.choice([dict_starting_items_kits["Diplomat's Pack"],dict_starting_items_kits["Entertainer's Pack"]]))
+    dict_starting_items_class ["Cleric"].append(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+
+
+
+    """inventory = {}
+    for key in dict_starting_items_class[char_class]:
+        inventory.update(key)
+    print (inventory)"""
 
 ###########################################################################
 #BODY OF CODE#
@@ -396,8 +461,8 @@ def char_stats_lvl1 (attributes,race,char_class):
 #generate the "key" infomation about the character
 dict_char ["Key"] = {
 "Name":char_name(), 
-"Race": random_dict_key(dict_race),
-#"Race" : "Elf (Wood)",
+#"Race": random_dict_key(dict_race),
+"Race" : "Dwarf (Mountain)",
 "Class": random_dict_key(dict_class),
 "Background": random_dict_key(dict_background)
 }
@@ -407,8 +472,9 @@ dict_char ["Attributes"] = roll_attributes(dict_char["Key"]["Race"],dict_char["K
 dict_char ["Proficiencies"] = char_proficiencies(dict_char["Key"]["Race"],dict_char["Key"]["Class"],dict_char["Key"]["Background"])
 dict_char ["Languages"] = char_languages(dict_char["Key"]["Race"],dict_char["Key"]["Background"])
 dict_char ["Stats"] = char_stats_lvl1(dict_char["Attributes"],dict_char["Key"]["Race"],dict_char["Key"]["Class"])
-
-print (dict_char)
+#print (dict_starting_items["Barbarian"])
+dict_char ["Inventory"] = char_items("Cleric",dict_char["Key"]["Background"],dict_char["Proficiencies"])
+#print (dict_char)
 
 """character = []
 character.append(char_name())
