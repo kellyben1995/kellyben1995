@@ -2,6 +2,8 @@
 import itertools
 import random
 import csv
+from typing import ChainMap
+import pandas as pd
 from turtle import update
 from numpy import roll
 
@@ -25,8 +27,8 @@ tools = [["Alchemist Tools","Brewer Tools","Calligrapher Tools","Cartographer To
 tools_dwarf = [tools[0][1],tools[0][9],tools[0][12]]
 vehicles = ["Land Vehicles","Water Vehicles"]
 resistances = ["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightening", "Nectrotic", "Piercing", "Poison", "Psychic" , "Radiant", "Slashing", "Thunder"]
-weapons = ["Simple Weapons","Martial Weapons","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Light hammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
-armour = ["Light Armpur","Medium Armour","Heavy Armour","Shields"]
+weapons = ["Simple","Martial","Longsword","Shortsword","Longbow","Shortbow","Battleaxe","Handaxe","Light hammer","Warhammer","Hand Crossbow","Rapier","Club","Dagger","Dart","Javelin","Mace","Quaterstaff","Scimitar","Sickle","Sling","Spear","Light Crossbow"]
+armour = ["Light Armour","Medium Armour","Heavy Armour","Shields"]
 languages = ["Common","Evlish","Dwarvish","Giant","Gnomish","Halfling","Orc","Abyssal","Celestial","Draconic","Deep Speech","Infernal","Primordial","Sylvan","Undercommon"]     
 
 
@@ -127,10 +129,13 @@ dict_weapons = {
     print(key,  " : ",  dict_weapons[key])"""
 
 dict_starting_items_kits = {
-"Diplomat's Pack" : {"Chest":1,"Case (Map/Scroll":2,"Clothes (Fine)":1,"Ink (Bottle)":1,"Ink Pen":1, "Lamp":1,"Oil  (Flask)":2,"Paper (Sheet)":5,"Vial (Perfume)":1,"Sealing Wax":1},
+"Burgler's Pack" : {"Backpack":1,"Ball Bearings (Bag)":1,"String (10ft)":1,"Bell":1,"Candle":5,"Crowbar":1,"Hammer":1,"Piton":1,"Latern (Hooded)":1,"Oil (Flask)":2,"Ration":5,"Tinderbox":1,"Waterskin":1,"Rope, Hempen (50ft)":1},
+"Diplomat's Pack" : {"Chest":1,"Case (Map/Scroll)":2,"Clothes (Fine)":1,"Ink (Bottle)":1,"Ink Pen":1, "Lamp":1,"Oil  (Flask)":2,"Paper (Sheet)":5,"Vial (Perfume)":1,"Sealing Wax":1},
+"Dungeoneer's Pack" : {"Backpack":1,"Crowbar":1,"Hammer":1,"Piton":10,"Tourch":10,"Ration":10,"Waterskin":1,"Rope, Hempen (50ft)":1},
 "Entertainer's Pack": {"Backpack":1,"Bedroll":1,"Clothes (Costume)":2,"Candle":5,"Ration":5,"Waterskin":1,"Disguise Kit":1},
 "Explorer's Pack" : {"Backpack":1,"Bedroll":1,"Mess Kit":1,"Tinderbox":1,"Torch":10,"Ration":10,"Waterskin":1,"Rope, Hempen (50ft)":1},
-"Priest's Pack" : {"Backpack":1,"Bedroll":1,"Candle":10,"Tinderbox":1,"Alms Box":1,"Block of Incense":1,"Censer":1,"Rations":2,"Clothes (Vestments)":2,"Waterskin":1}
+"Priest's Pack" : {"Backpack":1,"Bedroll":1,"Candle":10,"Tinderbox":1,"Alms Box":1,"Block of Incense":1,"Censer":1,"Rations":2,"Clothes (Vestments)":2,"Waterskin":1},
+"Scholar's Pack" : {"Backpack":1,"Book of Lore":1,"Ink Pen":1,"Ink (Bottle)":1,"Parchment":10,"Small Bag of Sand":1,"Knife":1}
 }
 
 
@@ -166,9 +171,6 @@ dict_race = {
     print(k,v)"""
 
 #dict_class = {class:[hit_die],skills#,[saving throws][skills][tools][vehicles][resistances][weapons][armour][languages][traits/abilities/feats][spells][items]]}
-
-
-
 
 dict_class = {
 "Barbarian":[12,2,[attributes[0],attributes[2]],[skills[1],skills[3],skills[7],skills[10],skills[11],skills[17]],[],[],[],[weapons[0],weapons[1]],[armour[0],armour[1],armour[3]],[],[],[],],
@@ -211,8 +213,6 @@ dict_background = {
 """for k,v in dict_background.items():
     print(k,v)"""
 
-
-
 #Function to roll dice
 def roll_dice (n=1,s=20,d=0,a = "n/a"):
     #n = number of dice to roll
@@ -229,7 +229,6 @@ def roll_dice (n=1,s=20,d=0,a = "n/a"):
     if a == 'l':
         x.pop (n-1)
     return x
-
 
 #Get the users to input the first and last names of the character they wish to create
 def char_name ():
@@ -248,8 +247,6 @@ def random_dict_key (dict_x):
         dict_keys.append(key)
     selection = random.choice(dict_keys)
     return selection
-
-
 
 #Function to randomly generate attributes using the 4d6 drop 1 method
 def roll_attributes (race,char_class):
@@ -339,17 +336,20 @@ def char_proficiencies (race,char_class,background):
     char_vehicles = dict_background[background][3]
 
     ##################################### - Weapoms (Not Completed) - #####################################
-    char_weapons = dict_background[background][3]
+    char_weapons = dict_race[race][5]
+    char_weapons.extend(dict_class[char_class][7])
 
     ##################################### - Weapoms (Not Completed) - #####################################
-    char_armour = dict_background[background][3]
-
+    char_armour = dict_race[race][6]
+    char_armour.extend(dict_class[char_class][8])
     ##################################### - Create 1 consolidated dictionary - #####################################
 
 
     char_proficiencies = char_skills
     char_proficiencies.extend(char_tools)
     char_proficiencies.extend(char_vehicles)
+    char_proficiencies.extend(char_weapons)
+    char_proficiencies.extend(char_armour)
     #print(char_proficiencies)
     #this loop makes sure that each skills that the character is given in is given a score of 1
     #proficency is tracked by using this figure, so a figure of 1 = add proficeny 1 times, 0.5 = adding half proficeny and so on
@@ -414,37 +414,114 @@ def char_stats_lvl1 (attributes,race,char_class):
 
 def char_items (char_class,background,char_proficiencies):
     #create a list of proficenies the character has based of there proficiencies dictionary
+    starting_items = {}
     proficiencies = []
     for x in char_proficiencies:
         proficiencies.append(x)
 
-    w = [y if "Warhammer" else "Mace" for y in proficiencies] 
-    print (w)
-    w = [y for y in proficiencies if y == "Warhammer"]
-    print (w)
+
+
+    ####### THIS Code is and example of how to do a single line IF statement for searching for multiple potential status######
+    #w = ["Warhammer" if "Warhammer" in proficiencies or "Martial" in proficiencies  else "Mace"]
+    #print (w)
+
+    ####### THIS Code is and example of how to do a single line IF statement for searching for multiple potential status######
+
     #dictionary for each of the different starting items you can aquire by class {Item : # of Item}
     dict_starting_items_class = {
         "Barbarian" : 
             [random.choice([{"Greataxe":1},{random.choice(search_weapon_property("Martial")):1}]),
             random.choice([{"Handaxe":2},{random.choice(search_weapon_property("Simple")):1}]),
-            {"Javelin":4}],
+            {"Javelin":4},dict_starting_items_kits["Explorer's Pack"]],
         "Bard" : 
             [random.choice([{"Rapier":1},{"Longsword":1},{random.choice(search_weapon_property("Simple")):1}]),
             random.choice([{"Lute":2},{random.choice(tools[2]):1}]),
             {"Leather Armour":1},{"Dagger":1}],
         "Cleric" : 
-            [random.choice([{"Mace":1},{"Warhammer":1}]), #only if prof
+            [random.choice([{"Mace":1},[{"Warhammer":1} if "Warhammer" in proficiencies or "Martial" in proficiencies  else {"Mace":1}]]), #only if prof
             random.choice([{"Scail Mail":1},{"Leather Armour":1},{"Chain Mail":1}]), #only if prof
             random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
-            {"Shield":1},random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])]
-
+            {"Shield":1},random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])],
+        "Druid" :
+        #note "wooden shield might need to be added as an item, also currently only searching for Simple instead of simple melee"
+            [random.choice([{"Wooden Shield":1},{random.choice(search_weapon_property("Simple")):1}]),
+            random.choice([{"Scimitar":1},{random.choice(search_weapon_property("Simple")):1}]),
+            {"Leather Armour":1},random.choice([{"Sprig of Mistletoe":1},{"Totem":1},{"Wooden Staff":1},{"Yew Wand":1}])],
+        "Fighter" :
+            [random.choice([{"Chain Shirt":1},[{"Leather Armour":1},{"Longbow":1},{"Arrows":20}]]),
+            random.choice([[{random.choice(search_weapon_property("Martial")):1},"Wooden Shield"],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]]),
+            random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{"Handaxe":2}])],
+        "Monk" :
+            [random.choice([{"Shortsword":1},{random.choice(search_weapon_property("Simple")):1}]),
+            {"Darts":10}],
+        "Paladin" :
+            [random.choice(random.choice([[{random.choice(search_weapon_property("Martial")):1},"Wooden Shield"],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]])),
+            random.choice([{"Javerlin":5},{random.choice(search_weapon_property("Simple")):1}]),
+            {"Chain Mail":1},
+            random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])],
+        "Ranger" : 
+            [random.choice([{"Scale Mail":1},{"Leather Armour":1}]),
+            random.choice([{"Shortsword":2},[{random.choice(search_weapon_property("Simple")):1},{random.choice(search_weapon_property("Simple")):1}]]),
+            {"Longbow":1},{"Arrows":20}],
+        "Rogue" :
+            [random.choice([{"Rapier":1},{"Shorsword":1}]),
+            random.choice([[{"Shortbow":1},{"Arrows":20}],["Shortsword"]]),
+            {"Leather Armour":1},{"Dagger":2},{"Theives Tools":1}],
+        "Sorcerer" :
+            [random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
+            random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
+            {"Dagger":2}],
+        "Warlock" :
+            [random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
+            random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
+            {"Dagger":2},{"Leather Armour":1},{random.choice(search_weapon_property("Simple")):1}],
+        "Wizard" :
+            [random.choice([{"Quaterstaff":1},{"Dagger":1}]),
+            random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
+            {"Spellbook":1}]
+            
         }   
-    print (proficiencies)
+    
+    #print (proficiencies)
+    classes_items = dict_starting_items_class.keys()
+    print (classes_items)
+
+    # This code is for flattening out each of dictionary enteries once they have been assigned then adding them to the starting items dictionary
+    for i in classes_items:
+        print (i)
+        for x in (dict_starting_items_class[i]):  
+            if isinstance(x, list):
+                for y in x:
+                    dict_starting_items_class[i].append(y)
+                dict_starting_items_class[i].remove(x)
+
+
+
+        
+        print (dict_starting_items_class[i])
+
+       
+    
+    
+    #print (k)
+    #print (dict_starting_items_class["Druid"])
+
     #add item kits (explorers, travellers ect) to each class
     dict_starting_items_class ["Barbarian"].append(dict_starting_items_kits["Explorer's Pack"])
     dict_starting_items_class ["Bard"].append(random.choice([dict_starting_items_kits["Diplomat's Pack"],dict_starting_items_kits["Entertainer's Pack"]]))
-    dict_starting_items_class ["Cleric"].append(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-
+    dict_starting_items_class ["Cleric"].extend(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Druid"].extend(dict_starting_items_kits["Explorer's Pack"])
+    dict_starting_items_class ["Fighter"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Monk"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Paladin"].extend(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Ranger"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Rogue"].extend(random.choice([dict_starting_items_kits["Burgler's Pack"],dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Sorcerer"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
+    dict_starting_items_class ["Warlock"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Scholar's Pack"]]))
+    dict_starting_items_class ["Wizard"].extend(random.choice([dict_starting_items_kits["Explorer's Pack"],dict_starting_items_kits["Scholar's Pack"]]))
+    
+    
+    #print (dict_starting_items_class["Druid"])
 
 
     """inventory = {}
@@ -461,9 +538,10 @@ def char_items (char_class,background,char_proficiencies):
 #generate the "key" infomation about the character
 dict_char ["Key"] = {
 "Name":char_name(), 
-#"Race": random_dict_key(dict_race),
-"Race" : "Dwarf (Mountain)",
-"Class": random_dict_key(dict_class),
+"Race": random_dict_key(dict_race),
+#"Race" : "Elf (Wood)",
+#"Class": random_dict_key(dict_class),
+"Class" : "Druid",
 "Background": random_dict_key(dict_background)
 }
 
@@ -473,7 +551,7 @@ dict_char ["Proficiencies"] = char_proficiencies(dict_char["Key"]["Race"],dict_c
 dict_char ["Languages"] = char_languages(dict_char["Key"]["Race"],dict_char["Key"]["Background"])
 dict_char ["Stats"] = char_stats_lvl1(dict_char["Attributes"],dict_char["Key"]["Race"],dict_char["Key"]["Class"])
 #print (dict_starting_items["Barbarian"])
-dict_char ["Inventory"] = char_items("Cleric",dict_char["Key"]["Background"],dict_char["Proficiencies"])
+dict_char ["Inventory"] = char_items(dict_char["Key"]["Race"],dict_char["Key"]["Background"],dict_char["Proficiencies"])
 #print (dict_char)
 
 """character = []
