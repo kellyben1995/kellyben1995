@@ -432,53 +432,66 @@ def char_items (char_class,background,char_proficiencies):
         "Barbarian" : 
             [random.choice([{"Greataxe":1},{random.choice(search_weapon_property("Martial")):1}]),
             random.choice([{"Handaxe":2},{random.choice(search_weapon_property("Simple")):1}]),
-            {"Javelin":4},dict_starting_items_kits["Explorer's Pack"]],
+            {"Javelin":4},
+            dict_starting_items_kits["Explorer's Pack"]],
         "Bard" : 
             [random.choice([{"Rapier":1},{"Longsword":1},{random.choice(search_weapon_property("Simple")):1}]),
             random.choice([{"Lute":2},{random.choice(tools[2]):1}]),
-            {"Leather Armour":1},{"Dagger":1}],
+            {"Leather Armour":1},{"Dagger":1},
+            random.choice([dict_starting_items_kits["Diplomat's Pack"],dict_starting_items_kits["Entertainer's Pack"]])],
         "Cleric" : 
             [random.choice([{"Mace":1},[{"Warhammer":1} if "Warhammer" in proficiencies or "Martial" in proficiencies  else {"Mace":1}]]), #only if prof
             random.choice([{"Scail Mail":1},{"Leather Armour":1},{"Chain Mail":1}]), #only if prof
             random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
-            {"Shield":1},random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])],
+            {"Shield":1},random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}]),
+            random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Druid" :
         #note "wooden shield might need to be added as an item, also currently only searching for Simple instead of simple melee"
             [random.choice([{"Wooden Shield":1},{random.choice(search_weapon_property("Simple")):1}]),
             random.choice([{"Scimitar":1},{random.choice(search_weapon_property("Simple")):1}]),
-            {"Leather Armour":1},random.choice([{"Sprig of Mistletoe":1},{"Totem":1},{"Wooden Staff":1},{"Yew Wand":1}])],
+            {"Leather Armour":1},random.choice([{"Sprig of Mistletoe":1},{"Totem":1},{"Wooden Staff":1},{"Yew Wand":1}]),
+            dict_starting_items_kits["Explorer's Pack"]],
         "Fighter" :
             [random.choice([{"Chain Shirt":1},[{"Leather Armour":1},{"Longbow":1},{"Arrows":20}]]),
-            random.choice([[{random.choice(search_weapon_property("Martial")):1},"Wooden Shield"],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]]),
-            random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{"Handaxe":2}])],
+            #random.choice(random.choice([[{random.choice(search_weapon_property("Martial")):1},{"Wooden Shield":1}],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]])),
+            random.choice([[{random.choice(search_weapon_property("Martial")):1},{"Wooden Shield":1}],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]]),
+            random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{"Handaxe":2}]),
+            random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Monk" :
             [random.choice([{"Shortsword":1},{random.choice(search_weapon_property("Simple")):1}]),
-            {"Darts":10}],
+            {"Darts":10},
+            random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Paladin" :
-            [random.choice(random.choice([[{random.choice(search_weapon_property("Martial")):1},"Wooden Shield"],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]])),
+            [random.choice([[{random.choice(search_weapon_property("Martial")):1},{"Wooden Shield":1}],[{random.choice(search_weapon_property("Martial")):1},{random.choice(search_weapon_property("Martial")):1}]]),
             random.choice([{"Javerlin":5},{random.choice(search_weapon_property("Simple")):1}]),
             {"Chain Mail":1},
-            random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}])],
+            random.choice([{"Amulet (Holy Symbol)":1},{"Emblem (Holy Symbol)":1},{"Reliquart (Holy Symbol)":1}]),
+            random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Ranger" : 
             [random.choice([{"Scale Mail":1},{"Leather Armour":1}]),
             random.choice([{"Shortsword":2},[{random.choice(search_weapon_property("Simple")):1},{random.choice(search_weapon_property("Simple")):1}]]),
-            {"Longbow":1},{"Arrows":20}],
+            {"Longbow":1},{"Arrows":20},
+            random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Rogue" :
             [random.choice([{"Rapier":1},{"Shorsword":1}]),
-            random.choice([[{"Shortbow":1},{"Arrows":20}],["Shortsword"]]),
-            {"Leather Armour":1},{"Dagger":2},{"Theives Tools":1}],
+            random.choice([[{"Shortbow":1},{"Arrows":20}],[{"Shortsword":1}]]),
+            {"Leather Armour":1},{"Dagger":2},{"Theives Tools":1},
+            random.choice([dict_starting_items_kits["Burgler's Pack"],dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Sorcerer" :
             [random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
             random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
-            {"Dagger":2}],
+            {"Dagger":2},
+            random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]])],
         "Warlock" :
             [random.choice([[{"Light Crossbow":1},{"Crossbow Bolts":20}],{random.choice(search_weapon_property("Simple")):1}]),
             random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
-            {"Dagger":2},{"Leather Armour":1},{random.choice(search_weapon_property("Simple")):1}],
+            {"Dagger":2},{"Leather Armour":1},{random.choice(search_weapon_property("Simple")):1},
+            random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Scholar's Pack"]])],
         "Wizard" :
             [random.choice([{"Quaterstaff":1},{"Dagger":1}]),
             random.choice([{"Component Pouch":1},{"Arcane Focus":1}]),
-            {"Spellbook":1}]
+            {"Spellbook":1},
+            random.choice([dict_starting_items_kits["Explorer's Pack"],dict_starting_items_kits["Scholar's Pack"]])]
             
         }   
     
@@ -487,38 +500,33 @@ def char_items (char_class,background,char_proficiencies):
     print (classes_items)
 
     # This code is for flattening out each of dictionary enteries once they have been assigned then adding them to the starting items dictionary
+   
+    
+    #for each value (list) in this dictionary
     for i in classes_items:
+        #create a blank variable for redudent data
+        redudent = []
         print (i)
+        #for each element of that list attached to that dictionary entry
         for x in (dict_starting_items_class[i]):  
+            #if that element is a list itself...
             if isinstance(x, list):
+                #iterate through each element of that list and append it to the end of the existing larger list
                 for y in x:
-                    dict_starting_items_class[i].append(y)
-                dict_starting_items_class[i].remove(x)
+                    #print (y)
+                    dict_starting_items_class[i].append(y)    
+                redudent.append(x)
+        #remove redudent nested list from items list
+        for s in redudent:
+            dict_starting_items_class[i].remove(s)       
+        #print (dict_starting_items_class[i])
+        #flattens the dicttionaries into 1 dictionary
+        new_items = {}
+        for y in dict_starting_items_class[i]:
+            #print (y)
+            new_items.update(y)
+        print (new_items)
 
-
-
-        
-        print (dict_starting_items_class[i])
-
-       
-    
-    
-    #print (k)
-    #print (dict_starting_items_class["Druid"])
-
-    #add item kits (explorers, travellers ect) to each class
-    dict_starting_items_class ["Barbarian"].append(dict_starting_items_kits["Explorer's Pack"])
-    dict_starting_items_class ["Bard"].append(random.choice([dict_starting_items_kits["Diplomat's Pack"],dict_starting_items_kits["Entertainer's Pack"]]))
-    dict_starting_items_class ["Cleric"].extend(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Druid"].extend(dict_starting_items_kits["Explorer's Pack"])
-    dict_starting_items_class ["Fighter"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Monk"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Paladin"].extend(random.choice([dict_starting_items_kits["Priest's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Ranger"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Rogue"].extend(random.choice([dict_starting_items_kits["Burgler's Pack"],dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Sorcerer"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Explorer's Pack"]]))
-    dict_starting_items_class ["Warlock"].extend(random.choice([dict_starting_items_kits["Dungeoneer's Pack"],dict_starting_items_kits["Scholar's Pack"]]))
-    dict_starting_items_class ["Wizard"].extend(random.choice([dict_starting_items_kits["Explorer's Pack"],dict_starting_items_kits["Scholar's Pack"]]))
     
     
     #print (dict_starting_items_class["Druid"])
