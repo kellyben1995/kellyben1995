@@ -2,6 +2,7 @@
 import itertools
 import random
 import csv
+from tracemalloc import start
 from typing import ChainMap
 import pandas as pd
 from turtle import update
@@ -414,7 +415,6 @@ def char_stats_lvl1 (attributes,race,char_class):
 
 def char_items (char_class,background,char_proficiencies):
     #create a list of proficenies the character has based of there proficiencies dictionary
-    starting_items = {}
     proficiencies = []
     for x in char_proficiencies:
         proficiencies.append(x)
@@ -497,7 +497,7 @@ def char_items (char_class,background,char_proficiencies):
     
     #print (proficiencies)
     classes_items = dict_starting_items_class.keys()
-    print (classes_items)
+    #print (classes_items)
 
     # This code is for flattening out each of dictionary enteries once they have been assigned then adding them to the starting items dictionary
    
@@ -506,7 +506,6 @@ def char_items (char_class,background,char_proficiencies):
     for i in classes_items:
         #create a blank variable for redudent data
         redudent = []
-        print (i)
         #for each element of that list attached to that dictionary entry
         for x in (dict_starting_items_class[i]):  
             #if that element is a list itself...
@@ -525,17 +524,51 @@ def char_items (char_class,background,char_proficiencies):
         for y in dict_starting_items_class[i]:
             #print (y)
             new_items.update(y)
-        print (new_items)
-
+        dict_starting_items_class[i] = new_items
+    print (char_class)
+    print (background)
+    #print (dict_background[background])
     
+    dict_starting_items_background = {
+        "Acolyte" : 
+            {random.choice(["Amulet (Holy Symbol)","Emblem (Holy Symbol)","Reliquart (Holy Symbol)"]):1,
+            "Prayer Book" : 1, "Prayer Wheel" : 1, "Incence" : 5, "Clothes (Vestments)" : 1, "Clothes (Common)" :1},
+        "Charlatan" :
+            {"Clothes (Fine)":1,"Disguise Kit":1,"Weighted Dice":1},
+        "Criminal/Spy" :
+            {"Crowbar":1,"Clothes (Common)":1},
+        "Entertainer" :
+            {random.choice(tools[2]):1,random.choice(["Love Letter","Lock of Hair","Trinket"]):1,"Clothes (Costume)":1},
+        "Folk Hero" :
+            {random.choice(tools[0]):1,"Shovel":1,"Iron Pot":1,"Clothes (Common)":1},
+        "Guild Artisan" :
+            {random.choice(tools[0]):1,"Letter of Introduction":1,"Clothes (Travelers)":1},
+        "Hermit" :
+            {"Scroll Case":1,"Winter Blanket":1,"Clothes (Common)":1,"Herbalism Kits":1},
+        "Noble" : 
+            {"Clothes (Fine)":1,"Signet Ring":1,"Scroll of Pedigree":1},
+        "Outlander" :
+            {"Staff":1,"Hunting Trap":1,"Hunting Trophy":1,"Clothes (Travelers)":1},
+        "Sage":
+            {"Ink Pen":1,"Ink (Bottle)":1,"Small Knife":1,"Mysterious Letter":1,"Clothes (Common)":1},
+        "Sailor":
+            {"Club":1,"Rope, Silk (50ft)":1,"Lucky Charm":1,"Clothes (Common)":1},
+        "Soldier":
+            {"Insignia of Rank":1,random.choice(["Dice","Cards"]):1,"Clothes (Common)":1},
+        "Urchin":
+            {"Smalle Knife":1,"Pet Mouse":1,"Family Memento":1,"Clothes (Common)":1}
+    }
     
     #print (dict_starting_items_class["Druid"])
+    #print (dict_starting_items_background[background])
 
-
-    """inventory = {}
-    for key in dict_starting_items_class[char_class]:
-        inventory.update(key)
-    print (inventory)"""
+    #generate player starting items
+    starting_items = dict_starting_items_class[char_class]
+    print (starting_items)
+    starting_items.update(dict_starting_items_background[background])
+    print (starting_items)
+    
+    return starting_items
 
 ###########################################################################
 #BODY OF CODE#
@@ -548,8 +581,7 @@ dict_char ["Key"] = {
 "Name":char_name(), 
 "Race": random_dict_key(dict_race),
 #"Race" : "Elf (Wood)",
-#"Class": random_dict_key(dict_class),
-"Class" : "Druid",
+"Class": random_dict_key(dict_class),
 "Background": random_dict_key(dict_background)
 }
 
@@ -559,7 +591,7 @@ dict_char ["Proficiencies"] = char_proficiencies(dict_char["Key"]["Race"],dict_c
 dict_char ["Languages"] = char_languages(dict_char["Key"]["Race"],dict_char["Key"]["Background"])
 dict_char ["Stats"] = char_stats_lvl1(dict_char["Attributes"],dict_char["Key"]["Race"],dict_char["Key"]["Class"])
 #print (dict_starting_items["Barbarian"])
-dict_char ["Inventory"] = char_items(dict_char["Key"]["Race"],dict_char["Key"]["Background"],dict_char["Proficiencies"])
+dict_char ["Inventory"] = char_items(dict_char["Key"]["Class"],dict_char["Key"]["Background"],dict_char["Proficiencies"])
 #print (dict_char)
 
 """character = []
